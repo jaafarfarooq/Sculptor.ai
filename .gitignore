@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# VS Code settings
+.vscode/
+
+# macOS / Linux system files
+.DS_Store
+Thumbs.db
+
+# Python environment / packaging
+*.egg-info/
+*.egg
+*.log
+*.sqlite3
+*.db
+
+# Environment variables
+.env
+.env.*
+
+# Jupyter Notebook checkpoints (if you add notebooks later)
+.ipynb_checkpoints/
+
+# Streamlit cache
+.streamlit/config.toml
+.cache/
+
+# Coverage and test results
+htmlcov/
+coverage.xml
+*.cover
+*.pyc
+
+# Pytest cache
+.pytest_cache/
+
+# Pydantic compiled models
+*.pyd
+
+# FastAPI auto-generated OpenAPI docs cache
+openapi.json
+
+# Installer logs
+pip-log.txt
+
+# Build artifacts
+build/
+dist/
+
+
+Apple.pdf
+AI_Fitness_App_Project_Proposal.docx
+~$_Fitness_App_Project_Proposal.docx
