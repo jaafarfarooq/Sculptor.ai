@@ -1,7 +1,5 @@
 import requests as re
 '''import json
-APP_ID = '881ecefc'
-APP_KEY = '08e7ea363d47ffc879fb51d0a6c9d752'
 
 url = 'https://trackapi.nutritionix.com/v2/natural/nutrients'
 headers = {
