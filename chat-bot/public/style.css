@@ -1,0 +1,131 @@
+/* public/style.css */
+
+/* Theme Variables */
+:root {
+  --bg: #f2f2f2;
+  --text: #333;
+  --card: #fff;
+  --primary: #007bff;
+  --primary-hover: #0056b3;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --card: #1e1e1e;
+  --primary: #1e90ff;
+  --primary-hover: #5592f7;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Global Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 40px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Chat Wrapper Grid */
+.chat-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Card Base Styles */
+.card {
+  background: var(--card);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+}
+
+/* Chat Form Card */
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.chat-form textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 180px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  transition: border 0.2s ease, background 0.3s ease, color 0.3s ease;
+}
+.chat-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.chat-form button {
+  align-self: flex-end;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.chat-form button:hover {
+  background: var(--primary-hover);
+}
+
+/* Response Card */
+.response-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.response-card p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .chat-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .chat-form button {
+    width: 100%;
+  }
+}
