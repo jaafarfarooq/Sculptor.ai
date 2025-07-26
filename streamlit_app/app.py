@@ -59,7 +59,7 @@ with st.sidebar:
 st.title("📊 Sculptor.ai Dashboard")
 
 if st.session_state.access_token:
-    menu = st.selectbox("📂 Navigation", ["Home", "TDEE Calculator", "Calorie Tracker", "Food Diary", "Profile"])
+    menu = st.selectbox("📂 Navigation", ["Home", "TDEE Calculator", "Calorie Tracker", "Food Diary", "Workout Recommender", "Profile"])
 
     if menu == "Home":
         st.subheader(f"Welcome, {st.session_state.username} 👋")
@@ -173,6 +173,68 @@ if st.session_state.access_token:
             st.markdown("### 📊 Totals for Today")
             st.write(totals.to_frame().T)
       
+
+    
+    elif menu == "Workout Recommender":
+        st.subheader("🏋️ Personalized Workout Plan Generator")
+        st.markdown("Provide your profile details to receive a tailored workout routine.")
+
+        with st.form("workout_form"):
+            col1, col2 = st.columns(2)
+            with col1:
+                sex = st.selectbox("Sex", ["Male", "Female", "Other"])
+                age = st.number_input("Age", min_value=12, max_value=100, step=1)
+                height = st.number_input("Height (cm)", min_value=100.0, max_value=250.0, step=0.1)
+                weight = st.number_input("Weight (kg)", min_value=30.0, max_value=200.0, step=0.1)
+                body_fat = st.number_input("Body Fat % (optional)", min_value=0.0, max_value=60.0, step=0.1)
+                injuries = st.text_input("Injuries or limitations (optional)")
+
+            with col2:
+                hypertension = st.checkbox("Do you have hypertension?")
+                diabetes = st.checkbox("Do you have diabetes?")
+                primary_fitness_goal = st.selectbox("Primary Fitness Goal", ["Weight Loss", "Muscle Gain", "Endurance", "Flexibility", "Maintain"])
+                preferred_fitness_type = st.selectbox("Preferred Fitness Type", ["Strength Training", "Cardio", "Yoga", "HIIT", "Mixed"])
+                experience_level = st.selectbox("Experience Level", ["Beginner", "Intermediate", "Advanced"])
+                days = st.slider("Days per week you can train", min_value=1, max_value=7)
+                workout_duration = st.slider("Workout duration (minutes)", min_value=15, max_value=120, step=5)
+                gym_access = st.radio("Access to gym?", [True, False])
+
+            equipment = st.text_input("Available equipment (comma-separated)")
+            submitted = st.form_submit_button("Generate Plan")
+
+        if submitted:
+            payload = {
+                "sex": sex,
+                "age": age,
+                "height": height,
+                "weight": weight,
+                "hypertension": hypertension,
+                "diabetes": diabetes,
+                "injuries": injuries,
+                "body_fat": body_fat if body_fat > 0 else None,
+                "primary_fitness_goal": primary_fitness_goal,
+                "preferred_fitness_type": preferred_fitness_type,
+                "experience_level": experience_level,
+                "days": days,
+                "gym_access": gym_access,
+                "available_equipment": [e.strip() for e in equipment.split(",") if e.strip()],
+                "workout_duration": workout_duration
+            }
+
+            print(payload)
+
+            try:
+                headers = {"Authorization": f"Bearer {st.session_state.access_token}"}
+                headers = {"Authorization": f"Bearer {st.session_state.access_token}"}
+                response = requests.post(f"{API_BASE}/api/v1/exercise_recommender", json=payload, headers=headers)
+                if response.status_code == 200:
+                    plan = response.json()
+                    st.success("💪 Your Workout Plan:")
+                    st.markdown(plan)
+                else:
+                    st.error(f"API Error {response.status_code}: {response.text}")
+            except Exception as e:
+                st.error(f"Connection error: {e}")
 
     elif menu == "Profile":
         st.subheader("🧾 Profile Overview")
